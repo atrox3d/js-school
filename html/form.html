@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+</head>
+
+<body>
+  <form id="address">
+    <label for="street">street</label>
+    <input type="text" id="street" placeholder="es. via val della torre 123" />
+    <label for="input">input</label>
+    <input type="text" id="input" />
+  </form>
+  <form name="shipping">
+    <fieldset>
+      <legend>Shipping Method</legend>
+      <label>
+        <input type="radio" name="method" value="1st">First-class</label>
+      <label>
+        <input type="radio" name="method" value="2day">2-day Air</label>
+      <label>
+        <input type="radio" name="method" value="overnite">Overnight</label>
+    </fieldset>
+  </form>
+
+  <div contenteditable>
+    edit
+  </div>
+  <p>
+    blac bla
+  </p>
+
+</body>
+
+</html>
+<script>
+  //document.designMode = "on";
+
+  document.onchange = function(event,b,c) {
+      console.log("onchange", event, b, c);
+      console.log("tagName", event.target.tagName);
+      console.log("name", event.target.name);
+      console.log("id", event.target.id);
+      console.log("value", event.target.value);
+      var target = event.target;
+      if(target.type == "radio")
+        target.checked = false;
+      else
+        target.value = null;
+  }
+
+  document.onmousemove = function(event) {
+      //console.log(event);
+  }
+
+  var street = document.getElementById("street");
+  street.onchange = function() {
+    console.log(street.value);
+  };
+
+  var fields = document
+    .getElementById("address")
+    .getElementsByTagName("input");
+  console.log(fields);
+
+  console.log(document.forms.address);
+  console.log(document.forms.address[0]);
+  console.log(document.forms.address.elements);
+
+  var methods = document.forms.shipping.elements.method;
+  console.log(methods);
+
+  var shipping_method;
+  for (var i = 0; i < methods.length; i++)
+    if (methods[i].checked) shipping_method = methods[i].value;
+  console.log(shipping_method);
+</script>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- served with <3, &yet -->
+<script>window.times = {start: new Date};</script>
+<link href="/&!.css" rel="stylesheet">
+<!-- <script src="/&!.js"> -->
+<script >
+var myArray = ['hello', 'something', 'awesome'];
+
+if (~myArray.indexOf('hello')) {
+  // Under what circumstances does this get called?
+  console.log("hello");
+} else {
+	console.log("wtf");
+}
+// Same array:
+var myArray = ['hello', 'something', 'awesome'];
+if (_(myArray).contains('hello')) {
+  // Also pretty freakin' clear!
+  console.log("hello");
+} else {
+	console.log("wtf");
+}
+</script>

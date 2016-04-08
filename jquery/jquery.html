@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="http://code.jquery.com/jquery-1.4.2.min.js" charset="utf-8"></script>
+		<title></title>
+	</head>
+	<body>
+		<h1 id="h1">H1title</h1>
+		<h2 id="h2">H2title</h2>
+		<div class="" id="div1">
+			<p >
+				<span>p1</span>
+			</p>
+
+			<p >
+				<span>p2</span>
+			</p>
+
+			<p >
+				<span></span>
+			</p>
+
+			<p >
+				<form class="" action="" method="post" id="form1">
+					<input type="text" id="name" value="testValue">
+					<input type="text" id="surname" value="testValue2">
+				</form>
+			</p>
+		</div>
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
+<script type="text/javascript">
+	//
+	//	$()
+	//
+	console.log($("p"));
+	console.log($("p").jquery);
+	//
+	// 	.css()
+	//
+	console.log($("p").css("font-weight"));
+	console.log($("p").css("color"));
+		$("p").css("font-weight", "bold");
+		$("p").css("color", "red");
+	console.log($("p").css("font-weight"));
+	console.log($("p").css("color"));
+	//
+	//  .each()
+	//
+	$("p").each(function (a, b) {
+		console.log("arguments", arguments);
+		console.log("this", this);
+		console.log("$this",$(this));
+		console.log("a,b", a,b);
+		$(this).prepend(a+":");
+		console.log(
+			$(":header").map(function() { return this.id; }).toArray().sort()
+		);
+	});
+	//
+	// .val()
+	//
+	console.log("name.val", $("#name").val());
+	console.log("name.newval", $("#name").val("newTestValue"));
+	console.log("input.text", $("input:text"));
+	console.log("input.text.val", $("input:text").val());
+	console.log("input.text", $("input:text").val(function(){
+		return this.defaultValue;
+	}));
+	//
+	console.log("text", $("body").text());
+	console.log("html", $("body").html());
+	$("#name").data("testdata", 1);
+	console.log($("#name").data());
+	$("h1").prepend("prependH1:" + "<br>");
+	$("h1").append("<br>" + ":appendH1");
+	$("h1").before("<hr name='beforeH1'/>");
+	$("h1").after("<hr name='afterH1'/>");
+	//
+	function toggleBG() {
+		console.log("--------------------------------------------------------");
+		console.log("toggleBG", "arguments", arguments);
+		console.log("toggleBG", "this", $(this));
+		console.log("toggleBG", "bg", $(this).css("background-color"));
+		console.log("toggleBG", "saveBG", $(this).data("saveBG"));
+		if($(this).data("saveBG")) {
+			$(this).css("background-color", $(this).data("saveBG"));
+			$(this).removeData("saveBG");
+		} else {
+			$(this).data("saveBG", $(this).css("background-color"));
+			$(this).css("background-color", "gray");
+		}
+	}
+
+	function getToggleBGClosure() {
+		var saveBG;
+		function toggleBGClosure() {
+			console.log("--------------------------------------------------------");
+			console.log("toggleBGClosure", "arguments", arguments);
+			console.log("toggleBGClosure", "this", $(this));
+			console.log("toggleBGClosure", "bg", $(this).css("background-color"));
+			console.log("toggleBGClosure", "saveBG", saveBG);
+			if(saveBG) {
+				$(this).css("background-color", saveBG);
+				saveBG = undefined;
+			} else {
+				saveBG =  $(this).css("background-color");
+				$(this).css("background-color", "gray");
+			}
+		}
+		return toggleBGClosure;
+	}
+	// Clicking on any <p> gives it a gray background
+	// $("p").click(function() { $(this).css("background-color", "gray"); });
+	// $("p").click(getToggleBGClosure());
+	$("p").click(toggleBG);
+
+</script>

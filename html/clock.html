@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- This is an HTML5 file -->
+<html>
+<!-- The root element -->
+
+<head>
+  <!-- Title, scripts & styles go here -->
+  <title>Digital Clock</title>
+
+  <script>
+    // Display error messages in a dialog box, but never more than 3
+    window.onerror = function(msg, url, line) {
+      if (onerror.num++ < onerror.max) {
+        alert("ERROR: " + msg + "\n" + url + ":" + line);
+        return true;
+      }
+    }
+    onerror.max = 3;
+    onerror.num = 0;
+  </script>
+
+  <script>
+    var $$ =  function(id) {return document.getElementById(id); };
+    var $ = function(selectors) {return document.querySelectorAll(selectors);};
+    function afterload() {
+      //alert("load");
+      console.log("afterload");
+      console.log("run:displayTime()");
+      displayTime();
+      var clock = $("#clock")[0];
+      console.log("afterload", "$ #clock", clock);
+      console.log("document.querySelectorAll", document.querySelectorAll("#clock"));
+      console.log("parentNode", clock.parentNode);
+      console.log("childNodes", clock.childNodes);
+      console.log("firstChild", clock.firstChild);
+      console.log("lastChild", clock.lastChild);
+      console.log("nextSibling,", clock.nextSibling);
+      console.log("previousSibling,", clock.previousSibling);
+      console.log("nodeType", clock.nodeType);
+      console.log("nodeValue", clock.nodeValue);
+      console.log("nodeName", clock.nodeName);
+    }
+    window.onload = afterload;
+  </script>
+
+
+  <script>
+    // A script of js code
+    // Define a function to display the current time
+    function displayTime() {
+      //var elt = document.getElementById("clock"); // Find element with id="clock"
+      var elt = $$("clock"); // Find element with id="clock"
+      var now = new Date(); // Get current time
+      elt.innerHTML = now.toLocaleTimeString(); // Make elt display it
+      setTimeout(displayTime, 1000); // Run again in 1 second
+
+    }
+    //window.onload = displayTime; // Start displaying the time when document loads.
+  </script>
+  <style>
+    /* A CSS stylesheet for the clock */
+
+    #clock {
+      /* Style apply to element with id="clock" */
+      font: bold 24pt sans;
+      /* Use a big bold font */
+      background: #ddf;
+      /* On a light bluish-gray background */
+      padding: 10px;
+      /* Surround it with some space */
+      border: solid black 2px;
+      /* And a solid black border */
+      border-radius: 10px;
+      /* Round the corners (where supported) */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- The body is the displayed parts of the doc. -->
+  <h1 >Digital Clock</h1>
+  <!-- Display a title -->
+  <span id="clock"></span>
+  <!-- The time gets inserted here -->
+  <p/>
+  <p/>
+  <p/>
+  <div>
+    <script>
+      document.write("<p>location</p>", location);
+      document.write("<p>navigator</p>",
+        navigator.appName,
+        "<br>",
+        "<br>",
+        navigator.appVersion,
+        "<br>",
+        "<br>",
+        navigator.userAgent,
+        "<br>",
+        "<br>",
+        navigator.platform
+      );
+    </script>
+  </div>
+</body>
+
+
+</html>

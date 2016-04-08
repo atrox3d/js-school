@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			function encodeFormData(data) {
+				if(!data) return "";
+				// console.log(data);
+				var pairs = [];
+				for (var name in data) {
+					if (!data.hasOwnProperty(name)) {
+						continue;
+					}
+					if(typeof data[name] === "function") continue;
+					var value = data[name].toString();
+					// console.log("value:", value );
+					name=encodeURIComponent(name.replace(" ", "+"));
+					value=encodeURIComponent(value.replace(" ", "+"));
+					console.log(name, value);
+					pairs.push(name + "=" + value);
+				}
+				return pairs.join("&");
+			}
+
+			function postData(url, callback, data) {
+				var request = new XMLHttpRequest();
+				request.open("POST", url);
+				request.onreadystatechange = function() {
+					if(request.readyState === 4 && callback)
+						callback(request);
+				};
+				request.setRequestHeader(
+						"Content-Type",
+						"application/x-www-form-urlencoded"
+				);
+				request.send(encodeFormData(data));
+			}
+
+			function postJSON(url, callback, data) {
+				var request = new XMLHttpRequest();
+				request.open("POST", url);
+				request.onreadystatechange = function() {
+					if(request.readyState === 4 && callback)
+						callback(request);
+				};
+				// request.setRequestHeader(
+				// 		"Content-Type",
+				// 		"application/x-www-form-urlencoded"
+				// );
+				request.setRequestHeader("Content-Type", "application/json");
+				request.send(JSON.stringify(data));			}
+
+			function callback(response) {
+				console.log("callback:", response);
+			}
+		</script>
+		<script type="text/javascript">
+			var data = {
+				find:"pizza",
+				zip:2050
+			};
+
+			postJSON(
+					"http://localhost:8000/test/mirror",
+					callback,
+					data
+			);
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

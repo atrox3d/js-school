@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<script>
+function postMessage(url, callback, msg) {
+	var request = new XMLHttpRequest(); // New request
+	request.open("POST", url); // POST to a server-side script
+	// Send the message, in plain-text, as the request body
+	request.setRequestHeader("Content-Type", // Request body will be plain text
+		"text/plain;charset=UTF-8");
+		request.onreadystatechange = function() { // Define event listener
+			console.log("onreadystatechange:readyState", request.readyState);
+			console.log("onreadystatechange:status", request.status);
+			// If the request is compete and was successful
+			if (request.readyState === 4 && request.status === 200) {
+				console.log("responseText:", request.responseText); // Pass it to callback
+				var type = request.getResponseHeader("Content-Type");
+				console.log("onreadystatechange:type:", type);
+				if (type.match(/^text/)) // Make sure response is text
+					callback(request.responseText); // Pass it to callback
+			}
+		};
+	request.send(msg); // Send msg as the request body
+}
+
+	//postMessage("http://localhost:8000/test/mirror", "hello");
+
+	// Issue an HTTP GET request for the contents of the specified URL.
+	// When the response arrives successfully, verify that it is plain text
+	// and if so, pass it to the specified callback function
+	function getText(url, callback) {
+		console.log("getText", url, callback);
+		var request = new XMLHttpRequest(); // Create new request
+		request.open("GET", url); // Specify URL to fetch
+
+		//request.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+		request.onreadystatechange = function() { // Define event listener
+			console.log("onreadystatechange:readyState", request.readyState);
+			console.log("onreadystatechange:status", request.status);
+			// If the request is compete and was successful
+			if (request.readyState === 4 && request.status === 200) {
+				console.log("responseText:", request.responseText); // Pass it to callback
+				var type = request.getResponseHeader("Content-Type");
+				console.log("onreadystatechange:type:", type);
+				if (type.match(/^text/)) // Make sure response is text
+					callback(request.responseText); // Pass it to callback
+			}
+		};
+		request.send(null); // Send the request now
+	}
+
+	function callback(text) {
+		//console.log("\n", "xxxcallback:", text, "\n");
+		// document.write(text);
+		document.write("<pre>" + text + "</pre>");
+		//document.write("<br>");
+	}
+	//getText("http://localhost:8000/test/mirror?yeah", callback);
+	postMessage("http://localhost:8000/test/mirror?yeah", callback, "hello");
+</script>
+
+<head>
+
+	<body>
+
+	</body>
